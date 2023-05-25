@@ -8,20 +8,13 @@ import List from '../List/LIst';
 const KEY = "Contact-List";
 
 export default function App() {
-  const [contacts, setContacts] = useState([]);
+  const [contacts, setContacts] = useState(JSON.parse(localStorage.getItem(KEY)) ?? []);
   const [filter, setFilter] = useState('');
-  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    const localData = localStorage.getItem(KEY);;
-    if (localData) {
-      setContacts(JSON.parse(localData));
-    }
-  }, []);
+    localStorage.setItem(KEY, JSON.stringify(contacts));
+  }, [contacts]);
 
-  useEffect(() => {
-    if (isLoaded) localStorage.setItem(KEY, JSON.stringify(contacts));
-  }, [contacts, isLoaded]);
 
   const hendleFilter = ({ currentTarget: { value } }) => {
     setFilter(value);
@@ -44,7 +37,6 @@ export default function App() {
       return
     };
     setContacts([...contacts, { id: generateId(), name: formData.get('name'), phone: formData.get('number') }]);
-    setIsLoaded(true);
   };
 
   const app =

@@ -3,7 +3,6 @@ import generateId from '../tools/idRandomize';
 import { Item, ListItems } from './List.styled'
 
 export default function List({ getFilterContacts, hendleContactRemove }) {
-
     const list =
         <ListItems>
             {getFilterContacts.length !== 0 && getFilterContacts.map((item, i) => (
